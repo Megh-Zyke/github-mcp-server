@@ -26,11 +26,15 @@ async def main():
         model, tools
     )
 
-    math_response = await agent.ainvoke(
-        {"messages" : [{"role": "user", "content": "Give me the details of the gitub repository Megh-Zyke/Efficiency-Benchmark ."}]},
+    repo = "Megh-Zyke/Efficiency-Benchmark"
+    predecessor = f"You are an AI assistant that answers questions about the repository {repo}.\n"
+    prompt = input("Enter your question: ")
+
+    response = await agent.ainvoke(
+        {"messages" : [{"role": "user", "content": predecessor + prompt}]},
     )
 
-    print("Math Response: ",math_response["messages"][-1].content)
+    print(response["messages"][-1].content)
 
 
 asyncio.run(main())
